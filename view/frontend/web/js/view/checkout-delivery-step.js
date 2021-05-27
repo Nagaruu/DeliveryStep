@@ -3,29 +3,14 @@ define([
     'uiComponent',
     'underscore',
     'Magento_Checkout/js/model/step-navigator',
-    'Magento_Customer/js/model/customer',
     'jquery',
-    'Magento_Ui/js/form/form',
-    'Magento_Customer/js/action/login',
-    'Magento_Customer/js/model/customer',
-    'mage/validation',
-    'Magento_Checkout/js/model/authentication-messages',
-    'Magento_Checkout/js/model/full-screen-loader'
-], function (ko, Component, _, stepNavigator,customer,fullScreenLoader,messageContainer,loginAction) {
+], function (ko, Component, _, stepNavigator) {
     'use strict';
-
-    var checkoutConfig = window.checkoutConfig;
-
     /**
      * mystep - is the name of the component's .html template,
      * <Vendor>_<Module>  - is the name of your module directory.
      */
     return Component.extend({
-        isGuestCheckoutAllowed: checkoutConfig.isGuestCheckoutAllowed,
-        isCustomerLoginRequired: checkoutConfig.isCustomerLoginRequired,
-        registerUrl: checkoutConfig.registerUrl,
-        forgotPasswordUrl: checkoutConfig.forgotPasswordUrl,
-        autocomplete: checkoutConfig.autocomplete,
         defaults: {
             template: 'AHT_DeliveryStep/content'
         },
@@ -59,6 +44,7 @@ define([
                  * 'sort order value' > 20 : step displays after payment step
                  */
                 15
+                
             );
             return this;
         },
@@ -71,10 +57,6 @@ define([
          */
         navigate: function () {
             this.isVisible(true);
-        },
-
-        isActive: function () {
-            return !customer.isLoggedIn();
         },
         navigateToNextStep: function () {
             stepNavigator.next();
